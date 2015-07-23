@@ -2,7 +2,7 @@ import sys
 import os
 
 # Check input arguments.
-assert len(sys.argv) >= 3, "Usage: python create_qt_project.py sourcefolder projname.proj"
+assert len(sys.argv) >= 3, "Usage: python create_qt_project.py sourcefolder projname.pro"
 folder = sys.argv[1]
 proj_filename = sys.argv[2]
 assert os.path.isdir(folder), folder + " is not a folder."
@@ -17,9 +17,10 @@ print "Reading contents of", folder
 for dir_name, subdir_list, file_list in os.walk(folder):
     for file_name in file_list:
         file_path = os.path.relpath(os.path.join(dir_name, file_name), proj_dir)
-        if file_path[-4:] == ".hxx":
+        file_ext = os.path.splitext(file_path)[1]
+        if file_ext in [".hxx", ".hpp", ".h"]:
             header_list.append("    " + file_path + " \\")
-        if file_path[-4:] == ".cxx":
+        if file_ext in [".cxx", ".cpp", ".c"]:
             source_list.append("    " + file_path + " \\")
 
 # Show some output and ask if the file shall really be created.
