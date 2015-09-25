@@ -1,5 +1,5 @@
 import sys
-from prime_lib import prime_factors, eratosthenes
+from prime_lib import prime_factors, eratosthenes, is_prime
 
 
 def main():
@@ -10,7 +10,11 @@ def main():
     factors = [str(p) + "^" + str(e) for p, e in prime_factors(n)]
     print n, "=", " * ".join(factors)
 
-    print "primes < 100 are", eratosthenes(100)
+    primes = eratosthenes(100)
+    print "primes < 100 are", primes
+    
+    for i in xrange(100):
+        assert (i in primes and is_prime(i)) or (i not in primes and not is_prime(i))
 
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ std::vector<size_t> eratosthenes_impl(size_t N)
 	std::vector<bool> marked(N+1);
 	marked[0] = true;
 	marked[1] = true;
-	for (size_t i = 2; i < std::sqrt(marked.size()); ++i)
+	for (size_t i = 2; i*i < marked.size(); ++i)
 	{
 		if (!marked[i])
 		{
@@ -33,7 +33,6 @@ std::vector<size_t> eratosthenes_impl(size_t N)
 	return primes;
 }
 
-
 void div(std::vector<Pair> & factors, size_t & n, size_t const & i)
 {
     if (n % i == 0)
@@ -55,7 +54,7 @@ std::vector<Pair> prime_factors_impl(size_t n)
     
     for (size_t i = 3; i <= n; i += 2)
     {
-        if (i > std::sqrt(n))
+        if (i*i > n)
         {
             factors.push_back(Pair(n, 1));
             break;
@@ -74,3 +73,18 @@ std::vector<Pair> prime_factors_impl(size_t n)
     
     return factors;
 }
+
+bool is_prime_impl(size_t n)
+{
+    if (n <= 1)
+        return false;
+    if (n <= 3)
+        return true;
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
+    for (size_t i = 5; i*i <= n; i+=6)
+        if (n % i == 0 || n % (i+2) == 0)
+            return false;
+    return true;
+}
+

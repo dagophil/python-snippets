@@ -2,7 +2,7 @@ from numpy.distutils.core import setup
 from Cython.Build import cythonize
 import sys
 
-ext = cythonize("prime_lib/prime_lib.pyx",
+ext = cythonize("src/prime_lib.pyx",
                 compiler_directives={"boundscheck": False,
                                      "wraparound": False,
                                      "nonecheck": False,
